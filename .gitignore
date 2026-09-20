@@ -1,0 +1,29 @@
+# Entorno
+.env
+*.local
+
+# Python
+apps/backend/.venv/
+apps/backend/**/__pycache__/
+*.pyc
+
+# Node
+node_modules/
+apps/frontend/dist/
+apps/frontend/*.tsbuildinfo
+
+# Almacenamiento local (videos, proxies, exports, base de datos) - nunca se versiona
+storage/originals/*
+storage/proxies/*
+storage/thumbnails/*
+storage/transcripts/*
+storage/exports/*
+storage/temp/*
+!storage/**/.gitkeep
+storage/app.db
+storage/app.db-journal
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
