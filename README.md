@@ -134,4 +134,15 @@ entrega**; quedaría como una fase 2 que reutiliza todo el motor ya construido
 - **La transcripción es muy lenta**: usa un modelo más pequeño (`tiny` o `base`) en
   Ajustes, o revisa que la app esté detectando tu GPU NVIDIA (se muestra en la parte
   superior: "GPU NVIDIA (CUDA)" o "CPU").
+- **"Instalar.bat" falla al instalar numpy/opencv con errores de compilación
+  (`meson`, `Unknown compiler`, `vswhere.exe`, etc.)**: significa que tu Python es
+  demasiado nuevo (por ejemplo 3.13+) y esos paquetes aún no publican un instalador
+  precompilado para esa versión, así que pip intenta compilarlos desde el código
+  fuente y falla porque Windows no trae un compilador de C instalado. Solución:
+  instala **Python 3.11 o 3.12** desde python.org (puedes tener varias versiones de
+  Python a la vez, no hace falta desinstalar la otra), borra la carpeta
+  `backend\.venv` si ya se creó, y vuelve a ejecutar `Instalar.bat`. Si `python` sigue
+  apuntando a la versión nueva, edita `Instalar.bat` y cambia la línea
+  `set "PYTHON_CMD=python"` por `set "PYTHON_CMD=py -3.11"` (o la versión que hayas
+  instalado).
 - Los registros técnicos de cada trabajo se guardan en `backend/data/logs/`.

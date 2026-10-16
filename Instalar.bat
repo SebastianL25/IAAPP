@@ -23,6 +23,9 @@ if %errorlevel% neq 0 (
     set "PYTHON_CMD=python"
 )
 
+echo Version de Python detectada:
+%PYTHON_CMD% --version
+
 where node >nul 2>nul
 if %errorlevel% neq 0 (
     echo [ERROR] No se encontro Node.js instalado.
@@ -45,7 +48,21 @@ echo [2/4] Instalando dependencias de Python (puede tardar varios minutos)...
 call backend\.venv\Scripts\python.exe -m pip install --upgrade pip
 call backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
 if %errorlevel% neq 0 (
+    echo.
     echo [ERROR] Fallo la instalacion de dependencias de Python.
+    echo.
+    echo La causa mas comun es tener una version de Python demasiado nueva
+    echo ^(por ejemplo 3.13+^), para la que algunos paquetes aun no publican
+    echo instalador precompilado y pip intenta compilarlos desde el codigo
+    echo fuente ^(lo cual falla si no tienes Visual Studio Build Tools^).
+    echo.
+    echo Solucion recomendada: instala Python 3.11 o 3.12 desde
+    echo https://www.python.org/downloads/ ^(sin desinstalar el que ya tienes^),
+    echo borra la carpeta backend\.venv, y vuelve a ejecutar este instalador.
+    echo Si tienes varias versiones de Python, puedes forzar una especifica
+    echo editando la linea "set PYTHON_CMD" de este archivo, por ejemplo:
+    echo    set "PYTHON_CMD=py -3.11"
+    echo.
     pause
     exit /b 1
 )
